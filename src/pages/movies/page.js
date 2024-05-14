@@ -34,7 +34,7 @@ export default function Movies() {
         <Header />
         <Nav />
       </div>
-      {!loading && (
+      {!loading ? (
         <div className="grid xl:grid-cols-6 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 lg:gap-6 sm:gap-3 justify-center my-20">
           {movies.map((movie) => (
             <div key={movie.url} className="h-auto rounded-lg transition duration-300 hover:bg-white hover:bg-opacity-15">
@@ -48,8 +48,7 @@ export default function Movies() {
             </div>
           ))}
         </div>
-      )}
-      {loading && (
+      ) : (
         <div className="flex items-center justify-center">
           <div class="loader"></div>
         </div>

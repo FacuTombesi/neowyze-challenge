@@ -66,7 +66,7 @@ export default function MovieDetail() {
             <h2 className="font-bold">Cast:</h2>
             <div className="grid xl:grid-cols-6 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 lg:gap-4 sm:gap-1 mt-4">
               {characters.map((character) => (
-                <div className="h-auto rounded-lg transition duration-300 hover:bg-white hover:bg-opacity-15 hover:font-bold p-2">
+                <div key={character.url} className="h-auto rounded-lg transition duration-300 hover:bg-white hover:bg-opacity-15 hover:font-bold p-2">
                   <Link key={character.url} href={`/characters/${character.url.split("/").slice(-2)[0]}`}>
                     <img src="/images/generic_character.jpg" alt={character.name} className="w-full h-auto" lazy />
                     <p>{character.name}</p>

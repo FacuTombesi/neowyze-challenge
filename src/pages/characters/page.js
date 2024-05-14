@@ -12,17 +12,15 @@ export default function Characters() {
   const [characters, setCharacters] = useState([])
   const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     const getCharacters = async () => {
       try {
-        const charactersPages = Array.from({ length: 9 }, (_, i) => i + 1)
-        const promises = charactersPages.map((page) => axios.get(`${SWAPI_CHARACTERS_URL}${page}`))
-        const responses = await Promise.all(promises)
-        const charactersData = await Promise.all(responses.map(response => response.data))
-        const allCharacters = charactersData.flatMap((page) => page.results)
+        const response = await axios.get(`${SWAPI_CHARACTERS_URL}${page}`)
+        const newCharacters = response.data.results
 
-        setCharacters(allCharacters)
+        setCharacters(prevCharacters => [...prevCharacters, ...newCharacters])
         setLoading(false);
       } catch (error) {
         setErrors(error)
@@ -31,7 +29,22 @@ export default function Characters() {
     }
 
     getCharacters();
-  }, [])
+  }, [page])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+        setPage(prevPage => prevPage + 1)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    };
+  })
+
 
   return (
     <div className="flex flex-col items-center justify-between min-h-screen">
@@ -40,7 +53,7 @@ export default function Characters() {
         <Nav />
       </div>
       {!loading ? (
-        <div className="grid xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 lg:gap-4 sm:gap-2 justify-center my-10">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:gap-4 sm:gap-2 justify-center my-10">
           {characters.map((character) => (
             <div key={character.url} className="h-auto rounded-lg transition duration-300 hover:bg-white hover:bg-opacity-15">
               <Link href={`/characters/${character.url.split("/").slice(-2)[0]}`}>

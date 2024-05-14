@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "prepare"
+    "vercel-build": "npm run prepare && next build"
   },
   "dependencies": {
     "axios": "^1.6.8",

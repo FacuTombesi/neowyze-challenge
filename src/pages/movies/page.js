@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 
+const SWAPI_MOVIES_URL = "https://swapi.dev/api/films"
+
 export default function Movies() {
   const [movies, setMovies] = useState([])
   const [errors, setErrors] = useState(null)
@@ -14,7 +16,7 @@ export default function Movies() {
   useEffect(() => {
     const getMovies = async () => {
       try {
-        const response = await axios.get("https://swapi.dev/api/films/")
+        const response = await axios.get(SWAPI_MOVIES_URL)
         setMovies(response.data.results)
         setLoading(false);
       } catch (error) {
@@ -38,7 +40,7 @@ export default function Movies() {
             <div key={movie.url} className="h-auto rounded-lg transition duration-300 hover:bg-white hover:bg-opacity-15">
               <Link href={`/movies/${movie.url.split("/").slice(-2)[0]}`}>
                 <div className="flex flex-col items-center p-6">
-                  <img src="/images/generic_movie.jpg" alt={movie.title} className="h-80 w-auto mb-4" />
+                  <img src="/images/generic_movie.jpg" alt={movie.title} className="h-80 w-auto mb-4" lazy />
                   <h2 className="text-center font-bold uppercase">{movie.title}</h2>
                   <p className="text-center text-sm">Episode {movie.episode_id}</p>
                 </div>

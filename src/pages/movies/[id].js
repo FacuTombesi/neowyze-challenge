@@ -11,7 +11,6 @@ const SWAPI_MOVIES_URL = "https://swapi.dev/api/films"
 export default function MovieDetail() {
   const [movie, setMovie] = useState({})
   const [characters, setCharacters] = useState([])
-  const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
@@ -35,7 +34,7 @@ export default function MovieDetail() {
         setCharacters(movieCharacters)
         setLoading(false);
       } catch (error) {
-        setErrors(error)
+        console.log("There was a error getting the movie detail: ", error)
         setLoading(false);
       }
     }

@@ -49,7 +49,7 @@ export default function MovieDetail() {
         <Header />
         <Nav />
       </div>
-      {!loading && (
+      {!loading ? (
         <div className="flex flex-col gap-4 p-10">
           <div className="flex flex-col justify-center gap-10 lg:flex-row md:flex-row sm:flex-col">
             <img src="/images/generic_movie.jpg" alt={movie.title} className="h-auto w-full mb-4" lazy />
@@ -76,8 +76,7 @@ export default function MovieDetail() {
             </div>
           </div>
         </div>
-      )}
-      {loading && (
+      ) : (
         <div className="flex items-center justify-center">
           <div class="loader"></div>
         </div>

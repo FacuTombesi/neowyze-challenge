@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import axios from "axios";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
@@ -19,14 +20,14 @@ export default function MovieDetail() {
     const getMovie = async () => {
       try {
         const movieId = router.query.id
-        const movieResponse = await fetch(`${SWAPI_MOVIES_URL}/${movieId}`)
-        const movieInfo = await movieResponse.json()
+        const movieResponse = await axios.get(`${SWAPI_MOVIES_URL}/${movieId}`)
+        const movieInfo = movieResponse.data
         setMovie(movieInfo)
 
         const movieCharacters = await Promise.all(
           movieInfo.characters.map(async (charactersList) => {
-            const charactersResponse = await fetch(charactersList)
-            const charactersInfo = await charactersResponse.json()
+            const charactersResponse = await axios.get(charactersList)
+            const charactersInfo = charactersResponse.data
             return charactersInfo;
           })
         )

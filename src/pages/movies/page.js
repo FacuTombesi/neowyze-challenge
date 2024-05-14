@@ -35,7 +35,7 @@ export default function Movies() {
         <Nav />
       </div>
       {!loading ? (
-        <div className="grid xl:grid-cols-6 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 lg:gap-6 sm:gap-3 justify-center my-20">
+        <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 lg:gap-6 sm:gap-3 justify-center my-20">
           {movies.map((movie) => (
             <div key={movie.url} className="h-auto rounded-lg transition duration-300 hover:bg-white hover:bg-opacity-15">
               <Link href={`/movies/${movie.url.split("/").slice(-2)[0]}`}>

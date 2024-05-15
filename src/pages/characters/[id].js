@@ -56,9 +56,6 @@ export default function CharacterDetail() {
                 {character.mass !== "n/a" && character.mass !== "unknown" && (
                   <p className="text-sm">Weight: <span className="font-bold">{character.mass} kg</span></p>
                 )}
-                {character.gender !== "n/a" && character.gender !== "unknown" && (
-                  <p className="text-sm">Gender: {character.gender}</p>
-                )}
               </div>
               <div>
                 {character.eye_color !== "n/a" && character.eye_color !== "unknown" && (
@@ -69,6 +66,9 @@ export default function CharacterDetail() {
                 )}
               </div>
               <div>
+                {character.gender !== "n/a" && character.gender !== "unknown" && (
+                  <p className="text-sm">Gender: <span className="font-bold">{character.gender}</span></p>
+                )}
                 {character.skin_color !== "n/a" && character.skin_color !== "unknown" && (
                   <p className="text-sm">Skin color: <span className="font-bold">{character.skin_color}</span></p>
                 )}

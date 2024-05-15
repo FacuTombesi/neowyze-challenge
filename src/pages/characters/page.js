@@ -2,10 +2,10 @@ import "@/app/globals.css";
 import axios from "axios";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
+import FilterOptions from "@/components/FilterOptions";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import FilterOptions from "@/components/FilterOptions";
 
 const SWAPI_CHARACTERS_URL = "https://swapi.dev/api/people/?page="
 
@@ -112,7 +112,7 @@ export default function Characters() {
             <div key={character.url} className="h-auto rounded-lg transition duration-300 hover:bg-white hover:bg-opacity-15">
               <Link href={`/characters/${character.url.split("/").slice(-2)[0]}`}>
                 <div className="flex flex-col items-center p-6">
-                  <img src="/images/generic_character.jpg" alt={character.title} className="h-auto w-auto mb-4" lazy />
+                  <img src="/images/generic_character.jpg" alt={character.title} className="h-auto w-auto mb-4" />
                   <div className="flex flex-col gap-2">
                     <h2 className="text-center font-bold uppercase">{character.name}</h2>
                     <div>

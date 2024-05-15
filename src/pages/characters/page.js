@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import FilterOptions from "@/components/FilterOptions";
 
 const SWAPI_CHARACTERS_URL = "https://swapi.dev/api/people/?page="
 
@@ -13,6 +14,11 @@ export default function Characters() {
   const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
+
+  const [eyeColors, setEyeColors] = useState([])
+  const [eyeColorFilter, setEyeColorFilter] = useState("")
+  const [genders, setGenders] = useState([])
+  const [genderFilter, setGendersFilter] = useState("")
 
   useEffect(() => {
     const getCharacters = async () => {
@@ -45,6 +51,44 @@ export default function Characters() {
     };
   })
 
+  useEffect(() => {
+    const getFilters = async () => {
+      try {
+        let allEyeColors = []
+        let allGenders= []
+
+        for (let i = 1; i <= 9; i++) {
+          const response = await axios.get(`${SWAPI_CHARACTERS_URL}${i}`)
+          const allCharacters = response.data.results
+
+          if (allCharacters.length === 0) break;
+
+          const pageEyeColors = allCharacters.map((character) => character.eye_color).filter((color) => color !== "n/a" && color !== "unknown")
+
+          const pageGenders = allCharacters.map((character) => character.gender).filter((gender) => gender !== "n/a" && gender !== "unknown")
+
+          allEyeColors = [...allEyeColors, ...pageEyeColors]
+          allGenders = [...allGenders, ...pageGenders]
+        }
+
+        allEyeColors = Array.from(new Set(allEyeColors))
+        allGenders = Array.from(new Set(allGenders))
+
+        setEyeColors(allEyeColors)
+        setGenders(allGenders);
+      } catch (error) {
+        console.log("Error getting characters information: ", error)
+      }
+    }
+
+    getFilters()
+  }, [])
+
+  const filteredCharacters = characters.filter((character) => {
+    if (eyeColorFilter && character.eye_color !== eyeColorFilter) return false;
+    if (genderFilter && character.gender !== genderFilter) return false;
+    return true;
+  })
 
   return (
     <div className="flex flex-col items-center justify-between min-h-screen">
@@ -52,9 +96,19 @@ export default function Characters() {
         <Header />
         <Nav />
       </div>
+      {!loading && (
+        <FilterOptions
+          eyeColors={eyeColors}
+          genders={genders}
+          eyeColorFilter={eyeColorFilter}
+          genderFilter={genderFilter}
+          setEyeColorFilter={setEyeColorFilter}
+          setGendersFilter={setGendersFilter}
+        />
+      )}
       {!loading ? (
         <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:gap-4 sm:gap-2 justify-center my-10">
-          {characters.map((character) => (
+          {filteredCharacters.map((character) => (
             <div key={character.url} className="h-auto rounded-lg transition duration-300 hover:bg-white hover:bg-opacity-15">
               <Link href={`/characters/${character.url.split("/").slice(-2)[0]}`}>
                 <div className="flex flex-col items-center p-6">

@@ -56,6 +56,9 @@ export default function CharacterDetail() {
                 {character.mass !== "n/a" && character.mass !== "unknown" && (
                   <p className="text-sm">Weight: <span className="font-bold">{character.mass} kg</span></p>
                 )}
+                {character.gender !== "n/a" && character.gender !== "unknown" && (
+                  <p className="text-sm">Gender: {character.gender}</p>
+                )}
               </div>
               <div>
                 {character.eye_color !== "n/a" && character.eye_color !== "unknown" && (

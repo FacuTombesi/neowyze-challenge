@@ -52,7 +52,7 @@ export default function MovieDetail() {
       {!loading ? (
         <div className="flex flex-col gap-4 p-10">
           <div className="flex flex-col justify-center gap-10 lg:flex-row md:flex-row sm:flex-col">
-            <img src="/images/generic_movie.jpg" alt={movie.title} className="h-auto w-full mb-4" lazy />
+            <img src="/images/generic_movie.jpg" alt={movie.title} className="h-auto w-full mb-4" />
             <div>
               <h1 className="font-bold uppercase">{movie.title}</h1>
               <h2>Episode {movie.episode_id}</h2>
@@ -68,7 +68,7 @@ export default function MovieDetail() {
               {characters.map((character) => (
                 <div key={character.url} className="h-auto rounded-lg transition duration-300 hover:bg-white hover:bg-opacity-15 hover:font-bold p-2">
                   <Link href={`/characters/${character.url.split("/").slice(-2)[0]}`}>
-                    <img src="/images/generic_character.jpg" alt={character.name} className="w-full h-auto" lazy />
+                    <img src="/images/generic_character.jpg" alt={character.name} className="w-full h-auto" />
                     <p>{character.name}</p>
                   </Link>
                 </div>

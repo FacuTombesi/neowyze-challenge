@@ -47,7 +47,7 @@ export default function CharacterDetail() {
             {character.birth_year !== "n/a" && character.birth_year !== "unknown" && (
               <p className="mt-1 text-xs">Birth: <span className="font-bold">{character.birth_year}</span></p>
             )}
-            <img src="/images/generic_character.jpg" alt={character.name} className="h-auto w-full my-8" lazy />
+            <img src="/images/generic_character.jpg" alt={character.name} className="h-auto w-full my-8" />
             <div className="flex lg:flex-row sm:flex-col items-baseline justify-between">
               <div>
                 {character.height !== "n/a" && character.height !== "unknown" && (

@@ -1,6 +1,6 @@
 export default function FilterOptions({ eyeColors, genders, eyeColorFilter, genderFilter, setEyeColorFilter, setGendersFilter }) {
   return (
-    <div className="flex items-center justify-center gap-10 mt-4">
+    <div className="flex lg:flex-row sm:flex-col items-center justify-center lg:gap-10 sm:gap-4 mt-4">
       <div className="flex items-center justify-center gap-2">
         <p>Eye color:</p>
         <select value={eyeColorFilter} onChange={(e) => setEyeColorFilter(e.target.value)} className="rounded-lg text-black p-1 w-32">
